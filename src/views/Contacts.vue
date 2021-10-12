@@ -36,7 +36,7 @@ export default {
     display:flex;
     align-items:center;
     justify-content:center;
-    box-shadow: 0px 0px 6px 1px #333;
+    box-shadow: var(--shadow-small);
   }
   i{
     color:white; 
