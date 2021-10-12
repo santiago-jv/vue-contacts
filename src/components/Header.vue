@@ -9,6 +9,7 @@
         </div>
         <div class="menu-container">
             <i @click="closeMenu" class="fas fa-times close-btn"></i>
+            <h2 v-if="user">Menú</h2>
             <div v-if="user" class="user-container">
                 <i class="fas fa-user-circle"></i>
                 <div class="user-info">
@@ -87,6 +88,11 @@ export default {
         font-size: 1.5rem;
         color:var(--primary-color);
         cursor:pointer;
+    }
+    h2{
+        color:#fff;
+        text-align: center;
+        margin-bottom: 1.5rem;
     }
     i{
         font-size: 1.5rem;
