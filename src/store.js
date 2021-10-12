@@ -8,6 +8,7 @@ const store = new Vuex.Store({
   state: {
     user:null,
     contacts:[],
+  
   },
   mutations: {
     saveSession(state,payload) {
@@ -21,7 +22,7 @@ const store = new Vuex.Store({
     closeSession(state) {
       state.user = null
       sessionStorage.removeItem('token')
-    }
+    },
   }
 })
 

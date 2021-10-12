@@ -136,6 +136,7 @@ export default {
     nav p{
         font-size: 1.2rem;
         color:white;
+        cursor:pointer;
     }
     nav p:hover {
         text-decoration: underline;

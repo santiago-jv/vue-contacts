@@ -3,6 +3,29 @@
         <Loader/>
     </div>
      <div v-else-if="contacts.length > 0"  class="contacts-container">
+       
+        <div v-show="isOpen" class="container" >
+          <div class="modal">
+              <div class="modal-title">
+                  <h1>
+                      Solicitud de confirmación
+                  </h1>
+                  <i @click="closeModal" class=" fas fa-times close-btn"></i>
+              </div>
+              <div class="modal-body">
+                  <p>Está seguro(a) de querer eliminar este contacto?</p>
+              </div>
+              <div class="modal-footer">
+                  <button @click="removeContact">
+                      <i class="fas fa-check-circle"></i> <p>Confirmar</p>
+                  </button>
+                  <button @click="closeModal">
+                      <i  class=" fas fa-ban"></i> <p>Cancelar</p>     
+                  </button>
+              </div>
+          </div>
+        </div>
+   
         <div v-for="contact in contacts" :key="contact.id"  class="card">
             <div class="card-info">
               <img src="@/assets/contact-image.svg" alt="Picture of the contact" srcset="">
@@ -12,7 +35,7 @@
             </div>
             <div class="btn-container">
               <button v-on:click="goToEditView(contact.id)"><i class="fas fa-user-edit"></i></button>
-              <button v-on:click="removeContact(contact.id)"><i class="fas fa-user-times"></i></button>    
+              <button v-on:click="confirm(contact.id)"><i class="fas fa-user-times"></i></button>    
             </div>
         </div>
     </div>
@@ -36,12 +59,15 @@ export default {
   data(){
     return {
       contacts:[],
-      loading:false
+      loading:false,
+      isOpen:false,
+      id_contact:null
     }
   },
   mounted() {
    this.retrieveContacts()
   },
+
   methods: {
     async retrieveContacts(){
       this.loading = true
@@ -57,16 +83,24 @@ export default {
     goToEditView(id) {
           this.$router.push('/contacts/edit/'+ id)
     },
-    async removeContact(id) {
+    async removeContact() {
+      this.isOpen = false
       try {
-          await deleteContact(id)
-          alert("Contacto eliminado.")
+          await deleteContact(this.id_contact)
           this.retrieveContacts()
       } catch (error) {
           alert(error.response.data)
       }
+    },
+    confirm(id){
+     this.isOpen = true
+     this.id_contact = id
+    },
+    closeModal(){
+      this.isOpen = false;
     }
-  }
+  },
+
 }
 </script>
 <style scoped>
@@ -114,7 +148,7 @@ export default {
   img{
     margin-bottom: 1rem;
   }
-  button{
+  .btn-container button{
     width: 45px;
     height: 45px;
     border-radius: 50%;
@@ -127,7 +161,7 @@ export default {
     background-color: var(--primary-color);
 
   }
-  i{
+  .btn-container button i{
     color:white;
     font-size: 1.1rem;
   }
@@ -149,4 +183,74 @@ export default {
       flex-wrap: wrap;
     }
   }
+
+
+  /* modal styles */
+
+  .container {
+        position: fixed;
+        top:0;
+        left:0;
+        width: 100%;
+        height: 100vh;
+        background-color:rgba(0,0,0,0.7);
+        display: flex;
+        align-items:center;
+        justify-content:center;
+        z-index: 100;
+    }
+    .modal{
+        width:95%;
+        max-width: 500px;
+        height:fit-content;
+        border-radius: .5rem;
+        background-color:#fff;
+    }
+    .modal-title {
+        display: flex;
+        align-items: center;
+        justify-content:space-between;
+        padding:1rem;
+        border-bottom: 1px solid var(--primary-color);
+
+    }
+    .modal-title i {
+        font-size: 1.5rem;
+        color: var(--primary-color);
+        cursor: pointer;
+    }
+    h1{
+        font-size: 1.5rem;
+    }
+    .modal-body {
+        padding:1rem;
+    }
+    .modal-body p{
+        font-size: 1.2rem;
+    }
+    .modal-footer {
+        display: flex;
+        padding:1rem;
+        border-top: 1px solid var(--primary-color);
+    }
+    .modal-footer button i {
+        margin-right: .5rem;
+        color: white;
+    }
+    .modal-footer button p{
+        font-weight: bold;
+        color: white;
+        font-size: 1rem;
+    }
+    .modal-footer button {
+        margin-right: 2rem;
+        display: flex;
+        padding:.4rem 1.1rem;
+        align-items:center;
+        justify-content:center;
+        border-radius: .5rem;
+        border:none;
+        cursor:pointer;
+        background-color:var(--primary-color);
+    }
 </style>
