@@ -9,6 +9,7 @@
         <h3 class="content">
           En esta aplicación, podrás registrar tus contactos. Comienza ahora!
         </h3>
+        
       </section>
       <Button :onClick="goToLogin" nameOfClass="fas fa-star" text="Empezar"/>
     </main>
