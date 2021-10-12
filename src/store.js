@@ -17,6 +17,10 @@ const store = new Vuex.Store({
     setContacts(state,payload) {
       console.log(payload);
       state.contacts = payload.contacts;
+    },
+    closeSession(state) {
+      state.user = null
+      sessionStorage.removeItem('token')
     }
   }
 })

@@ -46,7 +46,9 @@ export default {
         },
         logout() {
             this.$store.commit('closeSession')
-            this.$router.push('/login')
+            if(this.$route.path !== '/login'){
+                this.$router.push('/login')
+            }
         }
     }    
 }
