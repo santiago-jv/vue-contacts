@@ -17,7 +17,7 @@
         </div>
     </div>
     <div v-else class="contacts-container not-content">
-        <img src="@/assets/not-content.svg" alt="No hay contactos">
+        <img class="not-content-img" src="@/assets/not-content.svg" alt="No hay contactos">
         <h2 class="message">
           No hay contactos añadidos.
         </h2>
@@ -135,7 +135,12 @@ export default {
     flex-direction: column;
 
   }
-
+  .not-content-img {
+    width: 90%;
+  }
+  .message {
+    text-align: center;
+  }
   @media screen and (min-width:1000px) {
     .contacts-container{
       flex-direction:row;
