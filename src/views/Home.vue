@@ -49,7 +49,7 @@ export default {
     user-select: none;
     -webkit-user-drag: none;
     width:90%;
-    min-width:500px;
+    max-width:600px;
   }
   h3.content{
     text-align: center;
