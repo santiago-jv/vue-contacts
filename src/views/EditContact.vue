@@ -1,6 +1,5 @@
 <template>
    <div>
-        <Header/>
         <div class="container">
             <form v-on:submit.prevent="updateContact">
                 <h1>Edita un contacto</h1>
@@ -28,12 +27,11 @@
 </template>
 <script>
 import {updateContact,getContact} from "@/services/http-contacts"
-import Header from "@/components/Header.vue"
 import Button from "@/components/Button.vue"
 
 export default {
     name:'EditContact',
-    components: {Header,Button},
+    components: {Button},
     data(){
         return {
             contact:{
@@ -110,6 +108,6 @@ export default {
         margin:1rem 0;
     }
     .error-message{
-        color:tomato;
+       color:var(--error-color);
     }
 </style>

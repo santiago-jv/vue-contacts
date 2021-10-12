@@ -1,15 +1,19 @@
 <template>
   <div id="app">
    
-
+    <Header/>
     <main>
       <router-view/>
     </main>
   </div>
 </template>
 <script>
-
+import Header from "@/components/Header.vue"
 export default {
+  name:'App',
+  components: {
+    Header
+  }
 } 
 </script>
 <style>
@@ -21,6 +25,7 @@ export default {
   --bg-primary:#fff;
   --shadow-small: 0 5px 10px rgba(0,0,0,0.12);
   --shadow-medium: 0 8px 30px rgba(0,0,0,0.12);
+  --error-color:#e00;
 }
 
 input:-webkit-autofill:focus {

@@ -17,10 +17,12 @@
                 </div>
 
             </div> 
-            <nav>
-                <router-link to="/contacts">Mis contactos</router-link>
-                
+            <nav v-if="user">
+                <p @click="goToContacts">Mis contactos</p>
             </nav>
+            <div v-else class="btn-container">
+                <button @click="goToLogin"><p>Iniciar sesión</p></button>
+            </div>
             <div v-if="user" class="btn-container">
                 <button @click="logout"><p>Cerrar sesión</p></button>
             </div>
@@ -51,9 +53,19 @@ export default {
         },
         logout() {
             this.$store.commit('closeSession')
+            this.goToLogin()
+        }, 
+        goToLogin(){
             if(this.$route.path !== '/login'){
                 this.$router.push('/login')
             }
+            this.closeMenu()
+        },
+        goToContacts(){
+            if(this.$route.path !== '/contacts'){
+                this.$router.push('/contacts')
+            }
+            this.closeMenu()
         }
     }    ,
     computed: mapState(['user'])
@@ -115,14 +127,11 @@ export default {
     nav{
         margin:1rem 0;
     }
-    nav a{
-        text-decoration: none;
+    nav p{
         font-size: 1.2rem;
         color:white;
-
-
     }
-    nav a:hover {
+    nav p:hover {
         text-decoration: underline;
     }
     button i {

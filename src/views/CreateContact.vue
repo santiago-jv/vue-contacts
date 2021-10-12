@@ -1,6 +1,5 @@
 <template>
     <div>
-        <Header/>
         <div class="container">
             <form v-on:submit.prevent="saveContact">
                 <h1>Añade un contacto</h1>
@@ -28,12 +27,11 @@
 </template>
 <script>
 import {createContact} from "@/services/http-contacts"
-import Header from "@/components/Header.vue"
 import Button from "@/components/Button.vue"
 
 export default {
     name:'CreateContact',
-    components:{Header,Button},
+    components:{Button},
     data(){
         return {
             first_name:"",
@@ -99,7 +97,7 @@ export default {
         margin:1rem 0;
     }
     .error-message{
-        color:tomato;
+        color:var(--error-color);
     }
 
 </style>

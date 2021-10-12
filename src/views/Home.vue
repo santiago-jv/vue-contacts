@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Header/>
     <main>
       
       <div class="image-container">
@@ -20,12 +19,11 @@
 <script>
 // @ is an alias to /src
 import Button from "@/components/Button.vue"
-import Header from "@/components/Header.vue"
 
 export default {
   name: 'Home',
   components: {
-    Button,Header
+    Button,
   },
   methods: {
     goToLogin() {

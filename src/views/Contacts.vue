@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header/>
+    
     <ContactsList/>
     <button @click="goToCreateView" class="floating-action-btn"><i class="fas fa-user-plus"></i></button>
   </div>
@@ -9,11 +9,10 @@
 <script>
 
 import ContactsList from "@/components/ContactsList.vue"
-import Header from "@/components/Header.vue"
 
 export default {
   name: 'Contacts',
-  components: {Header,ContactsList},
+  components: {ContactsList},
   methods: {
     goToCreateView() {
       this.$router.push('contacts/create')

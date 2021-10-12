@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Header/>
     <div class="container">
       <form v-on:submit.prevent="createUser" autocomplete="off">
         <h1>Registra tu usuario</h1>
@@ -50,11 +49,10 @@
 import {register} from '@/services/http-auth.js'
 import Button from '@/components/Button.vue'
 import Loader from '@/components/Loader.vue'
-import Header from "@/components/Header.vue"
 export default {
   name: 'Login',
   components: {
-    Button, Loader,Header
+    Button, Loader,
   },
   data(){
     return {
@@ -141,7 +139,7 @@ export default {
         margin:1rem 0;
     }
     .error-message{
-        color:tomato;
+        color:var(--error-color);
     }
     .optional {
         text-decoration: underline;
