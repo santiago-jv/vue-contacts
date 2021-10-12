@@ -1,7 +1,10 @@
 <template>
     <header>
         <div class="container">
-            <h1 @click="goToHome">Contacts App</h1>
+            <div class="logo">
+                <i class="fas fa-address-book"></i>
+                <h1 @click="goToHome">Contacts App</h1>
+            </div>
             <i  @click="openMenu" class="fas fa-bars"></i>
         </div>
         <div class="menu-container">
@@ -137,5 +140,13 @@ export default {
         cursor:pointer;
         background-color:white;
     }
-
+    .logo {
+        display: flex;
+        align-items:center;
+        
+    }
+    .logo i{
+        margin-right: .7rem;
+        font-size: 1.7rem;
+    }
 </style>
