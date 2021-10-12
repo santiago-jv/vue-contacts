@@ -71,7 +71,7 @@ export default {
 </script>
 <style scoped>
   .contacts-container {
-    background-color:var(--bg-secondary);
+    background-color:var(--bg-primary);
     min-height:calc(100vh - 4rem);
     padding:2rem;
     display: flex;
@@ -83,10 +83,10 @@ export default {
 
   .card {
     width:90%;
-    max-width: 400px;
+    max-width: 350px;
     background-color:var(--bg-primary);
     border-radius: .7rem; 
-    box-shadow: 0 0 .4rem .1rem #333;
+    box-shadow:var( --shadow-medium);
     margin:1rem
   }
   .card-info{

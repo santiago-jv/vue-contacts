@@ -68,7 +68,7 @@ export default {
 
 <style scoped>
     .container{
-      background-color:var(--bg-secondary);
+      background-color:var(--bg-primary);
       height:calc(100vh - 4rem);
       padding-top: 2rem;
       display: flex;
@@ -80,7 +80,9 @@ export default {
         background-color:var(--bg-primary);
         padding:2rem 3rem;
         height:fit-content;
-        border-radius: .3rem;
+        box-shadow:var(--shadow-small);
+        border-radius: .5rem;
+
     }
     h1{
       font-size: 1.6rem;

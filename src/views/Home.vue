@@ -53,6 +53,7 @@ export default {
   }
   h3.content{
     text-align: center;
+    font-size: 1.7rem;
   }
   section.main-content {
     margin-bottom: 2rem;

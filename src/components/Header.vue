@@ -9,18 +9,19 @@
         </div>
         <div class="menu-container">
             <i @click="closeMenu" class="fas fa-times close-btn"></i>
-          <!--   <div v-if="user" class="user-container">
+            <div v-if="user" class="user-container">
                 <i class="fas fa-user-circle"></i>
-                   <div class="user-info">aa
-                    <p class="info">{{user.first_name}}</p>
+                <div class="user-info">
+                    <p class="info">{{user.user.first_name}}</p>
+                    <p class="info">{{user.user.last_name}}</p>
                 </div>
 
-            </div> -->
+            </div> 
             <nav>
                 <router-link to="/contacts">Mis contactos</router-link>
                 
             </nav>
-            <div class="btn-container">
+            <div v-if="user" class="btn-container">
                 <button @click="logout"><p>Cerrar sesión</p></button>
             </div>
         
@@ -29,11 +30,12 @@
 </template>
 <script> 
 let menu 
+import {mapState} from 'vuex'
 export default {
     name:'Header',
     mounted(){
         menu = document.querySelector('.menu-container');
-        this.user = this.$store.user
+
     },
     methods:{
         goToHome() {
@@ -53,7 +55,9 @@ export default {
                 this.$router.push('/login')
             }
         }
-    }    
+    }    ,
+    computed: mapState(['user'])
+    
 }
 </script>
 <style scoped>
@@ -63,7 +67,7 @@ export default {
         left:0;
         width: 100%;
         height: 4rem;
-        box-shadow: 0px 0px 10px 1px #333;
+        border-bottom: 2px solid var(--primary-color);
         z-index: 1;
         background-color: var(--bg-primary);
     }
@@ -148,5 +152,20 @@ export default {
     .logo i{
         margin-right: .7rem;
         font-size: 1.7rem;
+    }
+    .user-container{
+        display: flex;
+        flex-direction: column;
+        align-items:center;
+    }
+    .user-container i {
+        color:#fff;
+        font-size: 5rem;
+        margin-bottom: .5rem;
+    }
+    .info {
+        color:#fff;
+        font-size: 1.5rem;
+        text-align: center;
     }
 </style>

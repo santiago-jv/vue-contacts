@@ -57,7 +57,7 @@ export default {
 
 <style scoped>
     .container{
-        background-color:var(--bg-secondary);
+        background-color:var(--bg-primary);
         padding-top: 2rem;
         display:flex;
         justify-content: center;
@@ -69,7 +69,8 @@ export default {
         background-color:var(--bg-primary);
         padding:2rem 3rem;
         height:fit-content;
-        border-radius: .3rem;
+        box-shadow:var(--shadow-small);
+        border-radius: .5rem;
         margin-bottom: 2rem;
     }
     h1{
