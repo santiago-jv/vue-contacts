@@ -1,5 +1,8 @@
 <template>
-     <div class="contacts-container">
+    <div v-if="loading" class="contacts-container">
+        <Loader/>
+    </div>
+     <div v-else-if="contacts.length > 0"  class="contacts-container">
         <div v-for="contact in contacts" :key="contact.id"  class="card">
             <div class="card-info">
               <img src="@/assets/contact-image.svg" alt="Picture of the contact" srcset="">
@@ -13,17 +16,27 @@
             </div>
         </div>
     </div>
+    <div v-else class="contacts-container not-content">
+        <img src="@/assets/not-content.svg" alt="No hay contactos">
+        <h2 class="message">
+          No hay contactos añadidos.
+        </h2>
+    </div>
 </template>
 
 <script>
 import {getContacts} from '@/services/http-contacts'
 import {deleteContact} from '@/services/http-contacts.js'
+import Loader from '@/components/Loader.vue'
+
 export default {
   name: 'ContactsList',
-
+  components:{Loader
+  },
   data(){
     return {
-      contacts:[]
+      contacts:[],
+      loading:false
     }
   },
   mounted() {
@@ -31,6 +44,7 @@ export default {
   },
   methods: {
     async retrieveContacts(){
+      this.loading = true
       try {
         const response = await getContacts()
         this.$store.commit({type:'setContacts', contacts:response.data});
@@ -38,6 +52,7 @@ export default {
       } catch (error) {
         console.log(error.response);
       }
+      this.loading = false;
     },
     goToEditView(id) {
           this.$router.push('/contacts/edit/'+ id)
@@ -116,12 +131,17 @@ export default {
     color:white;
     font-size: 1.1rem;
   }
+  .not-content {
+    flex-direction: column;
+
+  }
 
   @media screen and (min-width:1000px) {
     .contacts-container{
       flex-direction:row;
       justify-content:space-around;
       align-items:center;
+      flex-wrap: wrap;
     }
   }
 </style>

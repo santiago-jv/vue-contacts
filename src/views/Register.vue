@@ -8,6 +8,11 @@
         <div class="form-group">
           <label for="username">Nombre de usuario:</label>
           <input minlength="2" required v-model="username" id="username" type="text" class="field">
+          <div v-show="fields_errors.username !== ''" class="error-container">
+            <p class="error-message">
+              {{fields_errors.username[0]}}
+            </p>
+        </div>
         </div>
         <div class="form-group">
           <label for="first_name">Nombre:</label>
@@ -61,6 +66,9 @@ export default {
       repeated_password:'',
       loading:false,
       error: null,
+      fields_errors:{
+        username:'',
+      }
     }
   },
   
@@ -76,6 +84,7 @@ export default {
                 this.$router.push('/login')
             
             } catch (error) {
+                this.fields_errors.username = error.response.data.username
                 this.error = error.response.data.detail
             }
             this.loading = false;

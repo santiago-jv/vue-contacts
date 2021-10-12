@@ -1,10 +1,7 @@
 <template>
   <div id="app">
    
-    <!-- <div id="nav">
-      <router-link to="/">ContactsApp</router-link> |
-      <router-link to="/contacts">Mis contactos</router-link>
-    </div> -->
+
     <main>
       <router-view/>
     </main>

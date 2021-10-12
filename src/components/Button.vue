@@ -3,7 +3,7 @@
        <i v-bind:class="nameOfClass"></i>
        <p>{{text}}</p>
     </button>
-     <button v-else>
+     <button type="submit" v-else>
        <i v-bind:class="nameOfClass"></i>
        <p>{{text}}</p>
     </button>

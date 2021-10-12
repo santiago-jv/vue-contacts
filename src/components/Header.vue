@@ -13,23 +13,24 @@
                 </div>
 
             </div> -->
+            <nav>
+                <router-link to="/contacts">Mis contactos</router-link>
+                
+            </nav>
+            <div class="btn-container">
+                <button @click="logout"><p>Cerrar sesión</p></button>
+            </div>
         
         </div>
     </header>
 </template>
 <script> 
 let menu 
-
 export default {
     name:'Header',
-
-    data(){
-        return{user:"null"}
-    },
     mounted(){
         menu = document.querySelector('.menu-container');
         this.user = this.$store.user
-        console.log(this.user);
     },
     methods:{
         goToHome() {
@@ -42,6 +43,10 @@ export default {
         },
         closeMenu() {
             menu.style.right = '-100%'
+        },
+        logout() {
+            this.$store.commit('closeSession')
+            this.$router.push('/login')
         }
     }    
 }
@@ -78,8 +83,8 @@ export default {
         height: 100%;
     }
     .menu-container{
-        position: fixed;
         z-index: 2;
+        position: fixed;
         top:0;
         right: -100%;
         width: 80%;
@@ -91,6 +96,44 @@ export default {
     .close-btn {
         color:white;
         margin:1rem;
+    }
+    .btn-container,nav {
+        width: 100%;
+        display: flex;
+        justify-content: center; 
+        
+    }
+    nav{
+        margin:1rem 0;
+    }
+    nav a{
+        text-decoration: none;
+        font-size: 1.2rem;
+        color:white;
+
+
+    }
+    nav a:hover {
+        text-decoration: underline;
+    }
+    button i {
+        margin-right: .5rem;
+        color:  var(--primary-color);
+    }
+    button p{
+        font-weight: bold;
+        color:var(--primary-color);
+        font-size: 1rem; 
+    }
+    button {
+        display: flex;
+        padding:.4rem 1.1rem;
+        align-items:center;
+        justify-content:center;
+        border-radius: .5rem;
+        border:none;
+        cursor:pointer;
+        background-color:white;
     }
 
 </style>

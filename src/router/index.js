@@ -1,14 +1,15 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '../store'
-
+import Home from '@/views/Home.vue'
+import Contacts from '@/views/Contacts.vue'
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
     name: 'Home',
-    component: () => import('../views/Home.vue')
+    component: Home
   },
   {
     path: '/login',
@@ -24,7 +25,7 @@ const routes = [
     path: '/contacts',
     name: 'Contacts',
     meta:{requiresAuth: true},
-    component: () => import('../views/Contacts.vue'),
+    component: Contacts
     
   },
   {

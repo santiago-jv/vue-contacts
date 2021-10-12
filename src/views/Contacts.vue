@@ -25,7 +25,7 @@ export default {
   button {
     cursor: pointer;
     position: fixed;
-    z-index: 3;
+    z-index: 0;
     border-radius: 50%;
     bottom: 1rem;
     right: 1rem;
