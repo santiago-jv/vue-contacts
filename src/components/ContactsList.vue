@@ -35,6 +35,7 @@
             </div>
             <div class="btn-container">
               <button v-on:click="goToEditView(contact.id)"><i class="fas fa-user-edit"></i></button>
+              <button v-on:click="call(contact.phone_number)"><i class="fas fa-phone"></i></button>
               <button v-on:click="confirm(contact.id)"><i class="fas fa-user-times"></i></button>    
             </div>
         </div>
@@ -91,6 +92,9 @@ export default {
       } catch (error) {
           alert(error.response.data)
       }
+    },
+    call(phone_number){
+      window.location.href="tel:"+phone_number
     },
     confirm(id){
      this.isOpen = true
