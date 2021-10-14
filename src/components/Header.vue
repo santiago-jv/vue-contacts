@@ -5,7 +5,7 @@
                 <i class="fas fa-address-book"></i>
                 <h1 @click="goToHome">Contacts App</h1>
             </div>
-            <i  @click="openMenu" class="fas fa-bars"></i>
+            <i  @click="openMenu" class="fas fa-bars open-btn"></i>
         </div>
         <div class="menu-container">
             <i @click="closeMenu" class="fas fa-times close-btn"></i>
@@ -94,10 +94,14 @@ export default {
         text-align: center;
         margin-bottom: 1.5rem;
     }
-    .container i, .menu-container i{
+    .open-btn, .close-btn {
         font-size: 1.5rem;
         color:var(--primary-color);
         cursor:pointer;
+    }
+     .close-btn {
+        color:white;
+        margin:1rem;
     }
 
     .container{
@@ -120,10 +124,7 @@ export default {
         transition:right 0.5s ease;
         
     }
-    .close-btn {
-        color:white;
-        margin:1rem;
-    }
+   
     .btn-container,nav {
         width: 100%;
         display: flex;
