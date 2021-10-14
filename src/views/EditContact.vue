@@ -1,6 +1,9 @@
 <template>
    <div>
         <div class="container">
+            <div class="btn-container">
+                <Button :onClick="goToContacts" text="Regresar" nameOfClass="fas fa-undo"></Button>
+            </div>
             <form v-on:submit.prevent="updateContact">
                 <h1>Edita un contacto</h1>
                 <div class="form-group">
@@ -59,6 +62,9 @@ export default {
         async retrieveContact() {
             const response = await getContact(this.$route.params.id)
             this.contact = response.data
+        },
+        goToContacts(){
+            this.$router.push('/contacts')
         }
     }
 }
@@ -68,7 +74,8 @@ export default {
         background-color:var(--bg-primary);
         padding-top: 2rem;
         display:flex;
-        justify-content: center;
+        flex-direction:column;
+        align-items: center;
         min-height: calc(100vh - 4rem);
     }
     form{
@@ -108,5 +115,10 @@ export default {
     }
     .error-message{
        color:var(--error-color);
+    }
+    .btn-container{
+        width:100%;
+        max-width:500px;
+        margin:2rem auto;
     }
 </style>
