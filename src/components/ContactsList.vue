@@ -83,7 +83,6 @@ export default {
       this.loading = true
       try {
         const response = await getContacts()
-        this.$store.commit({type:'setContacts', contacts:response.data});
         this.contacts = response.data;
       } catch (error) {
         console.log(error.response);

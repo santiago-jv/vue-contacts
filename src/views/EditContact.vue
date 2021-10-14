@@ -57,7 +57,6 @@ export default {
             }
         },
         async retrieveContact() {
-            console.log(this.$route.params);
             const response = await getContact(this.$route.params.id)
             this.contact = response.data
         }
