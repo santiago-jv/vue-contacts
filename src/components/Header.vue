@@ -94,7 +94,7 @@ export default {
         text-align: center;
         margin-bottom: 1.5rem;
     }
-    .container i{
+    .container i, .menu-container i{
         font-size: 1.5rem;
         color:var(--primary-color);
         cursor:pointer;
