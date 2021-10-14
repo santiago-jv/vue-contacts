@@ -1,6 +1,9 @@
 <template>
 <main>
-    <input class="field" type="text" v-model="search" placeholder="Busca un contacto"/>
+    <div class="form-group">
+      <input class="field" type="text" v-model="search" placeholder="Busca un contacto"/>
+      <i class="fas fa-times" @click="cleanField"></i> 
+    </div>
     <div v-if="loading" class="contacts-container">
         <Loader/>
     </div>
@@ -109,6 +112,9 @@ export default {
     closeModal(){
       this.isOpen = false;
     },
+    cleanField(){
+      this.search = ""
+    }
    
   },
   computed:{
@@ -200,6 +206,36 @@ export default {
   .message {
     text-align: center;
   }
+
+  .form-group {
+    display: flex;
+    align-items: center;
+    border:2px solid var(--primary-color);
+    width:90%;
+    margin:6rem auto 0rem auto ;
+    max-width: 400px;
+    height:38px;
+    border-radius: .9rem;
+    
+  }
+  .field{
+    outline:none;
+    border:none;
+    width:100%;
+    max-width: 400px;
+    display: block;
+    height:100%;
+    border-radius: .9rem;
+    padding-left:.5rem;
+    font-size: 1.2rem;
+  }
+  .form-group i{
+    margin-right: 1rem;
+    color:var(--primary-color);
+    font-size: 1.1rem;
+    cursor:pointer;
+  }
+
   @media screen and (min-width:1000px) {
     .contacts-container{
       flex-direction:row;
@@ -211,18 +247,6 @@ export default {
 
 
   /* modal styles */
-  .field{
-    outline:none;
-    border:2px solid var(--primary-color);
-    width:90%;
-    max-width: 400px;
-    display: block;
-    margin:6rem auto 0rem auto ;
-    height:35px;
-    border-radius: .9rem;
-    padding-left:.5rem;
-    font-size: 1.2rem;
-  }
   .container {
         position: fixed;
         top:0;

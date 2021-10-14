@@ -84,6 +84,10 @@ export default {
         z-index: 1;
         background-color: var(--bg-primary);
     }
+    .logo i{
+        font-size: 1.4rem;
+        color: var(--primary-color);
+    }
     h1{
         font-size: 1.5rem;
         color:var(--primary-color);
