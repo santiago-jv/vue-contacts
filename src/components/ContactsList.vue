@@ -118,12 +118,14 @@ export default {
   },
   computed:{
     filteredContacts(){
-        return this.contacts.filter(contact=>{
-          const dataToSearch = this.search.toLowerCase()
+      const dataToSearch = this.search.toLowerCase();
+      const length = dataToSearch.length
+      return this.contacts.filter(contact=>{
           const first_name = contact.first_name.toLowerCase()
           const last_name = contact.last_name.toLowerCase()
-          return first_name.includes(dataToSearch) || last_name.includes(dataToSearch)
+          return first_name.slice(0, length)===dataToSearch || last_name.slice(0,length)===dataToSearch;
         })
+        
       
     }
   }
