@@ -1,32 +1,36 @@
 <template>
+<main>
+    <input class="field" type="text" v-model="search" placeholder="Busca un contacto"/>
     <div v-if="loading" class="contacts-container">
         <Loader/>
     </div>
-     <div v-else-if="contacts.length > 0"  class="contacts-container">
-       
+
+    <div v-else-if="filteredContacts.length > 0"  class="contacts-container">
+      <div  class="contacts-container">
         <div v-show="isOpen" class="container" >
           <div class="modal">
-              <div class="modal-title">
-                  <h1>
-                      Solicitud de confirmación
-                  </h1>
-                  <i @click="closeModal" class=" fas fa-times close-btn"></i>
-              </div>
-              <div class="modal-body">
-                  <p>Está seguro(a) de querer eliminar este contacto?</p>
-              </div>
-              <div class="modal-footer">
-                  <button @click="removeContact">
-                      <i class="fas fa-check-circle"></i> <p>Confirmar</p>
-                  </button>
-                  <button @click="closeModal">
-                      <i  class=" fas fa-ban"></i> <p>Cancelar</p>     
-                  </button>
-              </div>
+            <div class="modal-title">
+              <h1>
+                Solicitud de confirmación
+              </h1>
+              <i @click="closeModal" class=" fas fa-times close-btn"></i>
+            </div>
+            <div class="modal-body">
+              <p>Está seguro(a) de querer eliminar este contacto?</p>
+            </div>
+            <div class="modal-footer">
+                <button @click="removeContact">
+                    <i class="fas fa-check-circle"></i> <p>Confirmar</p>
+                </button>
+                <button @click="closeModal">
+                    <i  class=" fas fa-ban"></i> <p>Cancelar</p>     
+                </button>
+            </div>
           </div>
         </div>
-   
-        <div v-for="contact in contacts" :key="contact.id"  class="card">
+        
+        
+        <div v-for="contact in filteredContacts" :key="contact.id"  class="card">
             <div class="card-info">
               <img src="@/assets/contact-image.svg" alt="Picture of the contact" srcset="">
               <h2 class="card-title">{{contact.first_name}}</h2>
@@ -39,13 +43,15 @@
               <button v-on:click="confirm(contact.id)"><i class="fas fa-user-times"></i></button>    
             </div>
         </div>
+      </div>
     </div>
     <div v-else class="contacts-container not-content">
         <img class="not-content-img" src="@/assets/not-content.svg" alt="No hay contactos">
         <h2 class="message">
-          No hay contactos añadidos.
+         No hay contactos disponibles.
         </h2>
     </div>
+</main>
 </template>
 
 <script>
@@ -55,14 +61,14 @@ import Loader from '@/components/Loader.vue'
 
 export default {
   name: 'ContactsList',
-  components:{Loader
-  },
+  components:{Loader},
   data(){
     return {
       contacts:[],
       loading:false,
       isOpen:false,
-      id_contact:null
+      id_contact:null,
+      search:"",
     }
   },
   mounted() {
@@ -90,7 +96,7 @@ export default {
           await deleteContact(this.id_contact)
           this.retrieveContacts()
       } catch (error) {
-          alert(error.response.data)
+          console.log(error.response.data)
       }
     },
     call(phone_number){
@@ -102,8 +108,20 @@ export default {
     },
     closeModal(){
       this.isOpen = false;
-    }
+    },
+   
   },
+  computed:{
+    filteredContacts(){
+        return this.contacts.filter(contact=>{
+          const dataToSearch = this.search.toLowerCase()
+          const first_name = contact.first_name.toLowerCase()
+          const last_name = contact.last_name.toLowerCase()
+          return first_name.includes(dataToSearch) || last_name.includes(dataToSearch)
+        })
+      
+    }
+  }
 
 }
 </script>
@@ -111,11 +129,13 @@ export default {
   .contacts-container {
     background-color:var(--bg-primary);
     min-height:calc(100vh - 4rem);
-    padding:2rem;
     display: flex;
     align-items: center;
     justify-content:center;
     flex-direction: column;
+    width: 90%;
+    max-width: 1000px;
+    margin:auto;
   }
   
 
@@ -175,6 +195,7 @@ export default {
   }
   .not-content-img {
     width: 90%;
+    max-width:500px;
   }
   .message {
     text-align: center;
@@ -190,7 +211,18 @@ export default {
 
 
   /* modal styles */
-
+  .field{
+    outline:none;
+    border:2px solid var(--primary-color);
+    width:90%;
+    max-width: 400px;
+    display: block;
+    margin:6rem auto 0rem auto ;
+    height:35px;
+    border-radius: .9rem;
+    padding-left:.5rem;
+    font-size: 1.2rem;
+  }
   .container {
         position: fixed;
         top:0;
