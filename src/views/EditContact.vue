@@ -4,7 +4,9 @@
             <div class="btn-container">
                 <Button :onClick="goToContacts" text="Regresar" nameOfClass="fas fa-undo"></Button>
             </div>
-            <form v-on:submit.prevent="updateContact">
+          
+            <Loader v-if="loading"></Loader>
+            <form v-else v-on:submit.prevent="updateContact">
                 <h1>Edita un contacto</h1>
                 <div class="form-group">
                     <label for="first_name">Nombres</label>
@@ -31,10 +33,10 @@
 <script>
 import {updateContact,getContact} from "@/services/http-contacts"
 import Button from "@/components/Button.vue"
-
+import Loader from "@/components/Loader.vue"
 export default {
     name:'EditContact',
-    components: {Button},
+    components: {Button,Loader},
     data(){
         return {
             contact:{
@@ -44,9 +46,10 @@ export default {
                
             },
             error:null,
+            loading:true,
         }
     },
-    mounted(){
+    mounted(){  
         this.retrieveContact()
     },
     
@@ -60,8 +63,15 @@ export default {
             }
         },
         async retrieveContact() {
-            const response = await getContact(this.$route.params.id)
-            this.contact = response.data
+            
+            try {
+                const response = await getContact(this.$route.params.id)
+                this.contact = response.data
+            } catch (error) {
+                console.log(error);
+            }
+            this.loading= false;
+           
         },
         goToContacts(){
             this.$router.push('/contacts')

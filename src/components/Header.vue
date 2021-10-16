@@ -13,8 +13,8 @@
             <div v-if="user" class="user-container">
                 <i class="fas fa-user-circle"></i>
                 <div class="user-info">
-                    <p class="info">{{user.user.first_name}}</p>
-                    <p class="info">{{user.user.last_name}}</p>
+                    <p class="info">{{user.first_name}}</p>
+                    <p class="info">{{user.last_name}}</p>
                 </div>
 
             </div> 

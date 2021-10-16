@@ -5,19 +5,30 @@
       <h1>Ingresa tu usuario</h1>
 
       <div class="form-group">
-        <label for="username">Nombre de usuario:</label>
-        <input minlength="2" required v-model="username" id="username" type="text" class="field">
+        <label for="email">Correo electrónico:</label>
+        <input minlength="2" required v-model="email" id="email" type="email" class="field">
+         <div  class="error-container">
+            <p v-for="error in errors.email" :key="error" class="error-message">
+                {{error}}
+            </p>
+          </div>
       </div>
       <div class="form-group">
         <label for="password">Contraseña:</label>
         <input  minlength="8"  required v-model="password" id="password" type="password" class="field">
+          <div class="error-container">
+              <p v-for="error in errors.password" :key="error" class="error-message">
+                {{error}}
+              </p>
+          </div>
       </div>
-      <div v-show="error" class="error-container">
+     <div v-show="errors.message" class="error-container">
         <p class="error-message">
-          {{error}}
+          {{errors.message}}
         </p>
       </div>
       <Loader v-if="loading" class="loader"></Loader>
+
       <Button text="Iniciar sesión" nameOfClass="fas fa-sign-in-alt" type="submit"/>
       <p @click="goToRegister" class="optional">¿No tienes usuario?</p>
     </form>
@@ -36,10 +47,14 @@ export default {
   },
   data(){
     return {
-      username: '',
+      email: '',
       password: '',
       loading:false,
-      error: null,
+      errors: {
+        email: [],
+        password: [],
+        message:null
+      },
     }
   },
   
@@ -47,13 +62,14 @@ export default {
     async startSession(){
       this.loading = true;
       try {
-        const response = await login({username: this.username, password: this.password})
-        this.$store.commit({type:'saveSession', user:response.data});
-        sessionStorage.setItem('session', response.data.token)
+        const response = await login({email: this.email, password: this.password})
+        console.log(response.data);
+        this.$store.commit({type:'saveSession', user:response.data.user});
+        sessionStorage.setItem('session', response.data.access_token)
         this.$router.push('/contacts')
        
       } catch (error) {
-        this.error = error.response.data.detail
+        this.errors = error.response.data
       }
        this.loading = false;
     },

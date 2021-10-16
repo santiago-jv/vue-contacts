@@ -5,25 +5,32 @@
         <h1>Registra tu usuario</h1>
 
         <div class="form-group">
-          <label for="username">Nombre de usuario:</label>
-          <input minlength="2" required v-model="username" id="username" type="text" class="field">
-          <div v-show="fields_errors.username !== ''" class="error-container">
-            <p class="error-message">
-              {{fields_errors.username[0]}}
-            </p>
-        </div>
-        </div>
-        <div class="form-group">
           <label for="first_name">Nombre:</label>
           <input required v-model="first_name" id="first_name" type="text" class="field">
+           <div class="error-container">
+              <p v-for="error in validations.errors.first_name" :key="error" class="error-message">
+                {{error}}
+              </p>
+          </div>
         </div>
         <div class="form-group">
           <label for="last_name">Apellido:</label>
           <input minlength="2" required v-model="last_name" id="last_name" type="text" class="field">
+           <div class="error-container">
+              <p v-for="error in validations.errors.last_name" :key="error" class="error-message">
+                {{error}}
+              </p>
+          </div>
         </div>
         <div class="form-group">
           <label for="email">Correo electrónico:</label>
           <input minlength="4" required v-model="email" id="email" type="email" class="field">
+           <div class="error-container">
+             
+              <p v-for="error in validations.errors.email" :key="error" class="error-message">
+                {{error}}
+              </p>
+          </div>
         </div>
         <div class="form-group">
           <label for="password">Contraseña:</label>
@@ -33,9 +40,9 @@
           <label  for="repeated_password">Repita la contraseña:</label>
           <input minlength="8" required v-model="repeated_password" id="repeated_password" type="password" class="field">
         </div>
-        <div v-show="error" class="error-container">
+        <div v-show="validations.message" class="error-container">
           <p class="error-message">
-            {{error}}
+            {{validations.message}}
           </p>
         </div>
         <Loader v-if="loading" class="loader"></Loader>
@@ -56,16 +63,19 @@ export default {
   },
   data(){
     return {
-      username: '',
       first_name:'',
       last_name:'',
       email: '',
       password: '',
       repeated_password:'',
       loading:false,
-      error: null,
-      fields_errors:{
-        username:'',
+      validations: {
+        errors:{
+          first_name:[],
+          last_name:[],
+          email:[],
+        },
+        message:null,
       }
     }
   },
@@ -78,16 +88,18 @@ export default {
         if(this.isValid()) {
             this.loading = true;
             try {      
-                await register({username: this.username,first_name:this.first_name,last_name:this.last_name,email:this.email, password: this.password})
-                this.$router.push('/login')
-            
+                const response=await register({first_name:this.first_name,last_name:this.last_name,email:this.email, password: this.password})
+                console.log(response);
+                this.$store.commit({type:'saveSession', user:response.data.user});
+                sessionStorage.setItem('session', response.data.access_token)
+                this.$router.push('/contacts')
             } catch (error) {
-                this.fields_errors.username = error.response.data.username
-                this.error = error.response.data.detail
+                console.log(error.response);
+                this.validations = error.response.data
             }
             this.loading = false;
         }
-        else this.error = "Las contraseñas no son iguales."
+        else this.validations.message = "Las contraseñas no son iguales."
     },
     goToLogin(){
       this.$router.push('/login')

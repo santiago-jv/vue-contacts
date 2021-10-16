@@ -90,7 +90,7 @@ export default {
       this.loading = false;
     },
     goToEditView(id) {
-          this.$router.push('/contacts/edit/'+ id)
+        this.$router.push('/contacts/edit/'+ id)
     },
     async removeContact() {
       this.isOpen = false
