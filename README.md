@@ -1,4 +1,6 @@
-# contacts-app
+# Contacts-app
+
+This is my first application made in Vue JS after learning it for 2 weeks. It was a good experience. However this program I refactored and improved with react js: [Repository](https://github.com/santiago-jv/contacts-now)
 
 ## Project setup
 ```
@@ -10,15 +12,3 @@ npm install
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
